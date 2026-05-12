@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乾陵残卷·第一章 凶案初现</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: '微软雅黑', serif;
+        }
+        body {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        /* 游戏容器 */
+        .game-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* 章节标题 */
+        .chapter-title {
+            text-align: center;
+            font-size: 28px;
+            color: #d4af37;
+            margin: 20px 0;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        /* 剧情面板 */
+        .story-panel {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #3a3a5a;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        /* 场景容器 */
+        .scene-box {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: url('bg.jpg') no-repeat center;
+            background-size: cover;
+            border-radius: 8px;
+            border: 2px solid #4a4a6a;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        /* 搜证点 */
+        .search-point {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .search-point:hover {
+            background: rgba(212, 175, 55, 0.8);
+            transform: scale(1.2);
+        }
+        /* 线索弹窗 */
+        .clue-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2a2a4a;
+            border: 2px solid #d4af37;
+            padding: 30px;
+            border-radius: 10px;
+            z-index: 999;
+            width: 80%;
+            max-width: 600px;
+        }
+        .clue-modal h3 {
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+        .close-btn {
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: #d4af37;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        /* 嫌疑人面板 */
+        .suspect-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .suspect-card {
+            flex: 1;
+            min-width: 180px;
+            background: rgba(42, 42, 74, 0.7);
+            border: 1px solid #3a3a5a;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .suspect-card:hover {
+            border-color: #d4af37;
+            transform: translateY(-5px);
+        }
+        .suspect-card h4 {
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+        /* 证词弹窗 */
+        .testimony-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2a2a4a;
+            border: 2px solid #d4af37;
+            padding: 30px;
+            border-radius: 10px;
+            z-index: 999;
+            width: 80%;
+            max-width: 700px;
+        }
+        /* 线索背包 */
+        .clue-bag {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #3a3a5a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .clue-bag h3 {
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+        .clue-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .clue-item {
+            background: #3a3a5a;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        /* 遮罩层 */
+        .mask {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 998;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="chapter-title">第一章 乾陵凶案·秘钥失窃</h1>
+
+        <!-- 剧情面板 -->
+        <div class="story-panel">
+            <p>【唐神龙元年，公元705年】</p >
+            <p>神龙政变落幕，武则天退位，唐中宗复辟，武李两党朝堂暗流汹涌。</p >
+            <p>乾陵，高宗与武则天合葬帝陵，地宫封陵在即，负责监造地宫、保管鎏金鸳鸯主钥的将作大匠裴昭，却在陵监署内室离奇身亡，地宫钥匙不知所踪。</p >
+            <p>距封陵仅剩3个时辰，一旦无法闭合帝陵，李唐龙脉动荡，朝野大乱。</p >
+            <p>你作为大理寺特派少卿，临危受命，封锁现场，务必在时限内查明真凶，找回鎏金钥匙。</p >
+            <p>此刻，你踏入陵监署凶案现场，真相，就藏在细节之中……</p >
+        </div>
+
+        <!-- 案发现场 -->
+        <div class="scene-box">
+            <!-- 搜证点 -->
+            <div class="search-point" style="top: 200px; left: 300px;" data-clue="死者手中紧握半片武则天亲笔竹简，字迹潦草：乾陵玄阙，归陵安厝，毋违朕命"></div>
+            <div class="search-point" style="top: 250px; left: 500px;" data-clue="桌案温茶，茶盏内检出草木犀毒，唐代宫廷秘毒，慢性毒发"></div>
+            <div class="search-point" style="top: 300px; left: 350px;" data-clue="死者腰间钥匙袋空空，袋口有宫廷专属金线缝合痕迹"></div>
+            <div class="search-point" style="top: 320px; left: 450px;" data-clue="地面掉落武氏宗族玄铁虎纹佩，非李唐皇室器物"></div>
+            <div class="search-point" style="top: 220px; left: 550px;" data-clue="施工日志，最后一页字迹被涂抹，隐约可见：钥匙、神龙、武三思"></div>
+        </div>
+
+        <!-- 嫌疑人列表 -->
+        <div class="suspect-panel">
+            <div class="suspect-card" data-name="苏凝" data-testi="我是陵监女官，跟随裴大人五年，今日一直在外殿整理文书，未曾进入内室。案发前一切正常，我不知大人为何会遭此毒手，鎏金钥匙我也从未碰过。">
+                <h4>苏凝</h4>
+                <p>乾陵陵监女官</p >
+            </div>
+            <div class="suspect-card" data-name="武攸宁" data-testi="我是武氏宗族代表，前来督办封陵事宜，案发时我在陵外等候，从未进入陵监署。钥匙丢失与我无关，那枚虎纹佩我早已丢失，不知为何会在现场。">
+                <h4>武攸宁</h4>
+                <p>武氏宗族代表</p >
+            </div>
+            <div class="suspect-card" data-name="李千里" data-testi="我乃李唐护陵使，负责守护帝陵，我与裴大人仅有几面之缘，只谈封陵公事。案发时段我在巡查陵山护卫，有侍卫可为证。">
+                <h4>李千里</h4>
+                <p>李唐护陵使</p >
+            </div>
+            <div class="suspect-card" data-name="林晚" data-testi="我是宫廷绣娘，负责缝制祭祀服饰，今日只在外间缝制衣物，从未靠近大人内室。我不懂药理，也不知钥匙之事。">
+                <h4>林晚</h4>
+                <p>宫廷绣娘</p >
+            </div>
+        </div>
+
+        <!-- 线索背包 -->
+        <div class="clue-bag">
+            <h3>线索背包</h3>
+            <div class="clue-list" id="clueList">
+                <p>暂无线索，点击现场光点进行搜证</p >
+            </div>
+        </div>
+    </div>
+
+    <!-- 线索弹窗 -->
+    <div class="mask" id="mask"></div>
+    <div class="clue-modal" id="clueModal">
+        <h3>发现线索</h3>
+        <p id="clueContent"></p >
+        <button class="close-btn" onclick="closeClue()">关闭</button>
+    </div>
+
+    <!-- 证词弹窗 -->
+    <div class="testimony-modal" id="testimonyModal">
+        <h3 id="suspectName"></h3>
+        <p id="testimonyContent"></p >
+        <button class="close-btn" onclick="closeTestimony()">关闭</button>
+    </div>
+
+    <script>
+        // 搜证功能
+        const searchPoints = document.querySelectorAll('.search-point');
+        const clueModal = document.getElementById('clueModal');
+        const testimonyModal = document.getElementById('testimonyModal');
+        const mask = document.getElementById('mask');
+        const clueList = document.getElementById('clueList');
+        let collectedClues = [];
+
+        searchPoints.forEach(point => {
+            point.addEventListener('click', function() {
+                const clue = this.getAttribute('data-clue');
+                document.getElementById('clueContent').innerText = clue;
+                clueModal.style.display = 'block';
+                mask.style.display = 'block';
+                
+                // 加入线索背包
+                if(!collectedClues.includes(clue)) {
+                    collectedClues.push(clue);
+                    renderClues();
+                }
+            });
+        });
+
+        // 渲染线索
+        function renderClues() {
+            if(collectedClues.length === 0) {
+                clueList.innerHTML = '<p>暂无线索，点击现场光点进行搜证</p >';
+                return;
+            }
+            clueList.innerHTML = '';
+            collectedClues.forEach(clue => {
+                const item = document.createElement('div');
+                item.className = 'clue-item';
+                item.innerText = clue;
+                clueList.appendChild(item);
+            });
+        }
+
+        // 嫌疑人证词
+        const suspectCards = document.querySelectorAll('.suspect-card');
+        suspectCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const name = this.getAttribute('data-name');
+                const testi = this.getAttribute('data-testi');
+                document.getElementById('suspectName').innerText = name;
+                document.getElementById('testimonyContent').innerText = testi;
+                testimonyModal.style.display = 'block';
+                mask.style.display = 'block';
+            });
+        });
+
+        // 关闭弹窗
+        function closeClue() {
+            clueModal.style.display = 'none';
+            mask.style.display = 'none';
+        }
+        function closeTestimony() {
+            testimonyModal.style.display = 'none';
+            mask.style.display = 'none';
+        }
+    </script>
+    <audio id="bgm" loop preload="auto">
+      <source src="bgm.mp3" type="audio/mpeg">
+</body>
+</html>
