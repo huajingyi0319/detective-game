@@ -300,7 +300,35 @@
             mask.style.display = 'none';
         }
     </script>
-    <audio id="bgm" loop preload="auto">
-      <source src="bgm.mp3" type="audio/mpeg">
+  <!-- 背景音乐 -->
+<audio id="bgm" loop>
+  <source src="bgm.mp3" type="audio/mpeg">
+  你的浏览器不支持音频播放
+
+
+<!-- 音乐控制按钮 -->
+<div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+  <button id="bgmBtn" style="background: #d4af37; color: #1a1a2e; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">
+    开启音乐
+  </button>
+</div>
+
+<script>
+const bgm = document.getElementById('bgm');
+const bgmBtn = document.getElementById('bgmBtn');
+let isPlaying = false;
+
+bgmBtn.addEventListener('click', function() {
+  if (isPlaying) {
+    bgm.pause();
+    bgmBtn.textContent = '关闭音乐';
+  } else {
+    bgm.play();
+    bgmBtn.textContent = '开启音乐';
+  }
+  isPlaying = !isPlaying;
+  bgm.volume = 0.4; // 音量 0-1，这里是40%音量
+});
+</script>
 </body>
 </html>
