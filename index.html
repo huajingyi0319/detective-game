@@ -300,34 +300,19 @@
             mask.style.display = 'none';
         }
     </script>
- <!-- 背景音乐 + 控制按钮 -->
+<!-- 背景音乐（点击页面任意位置播放） -->
 <audio id="bgm" loop>
   <source src="bgm.mp3" type="audio/mpeg">
   你的浏览器不支持音频播放
 
 
-<!-- 无乱码按钮 -->
-<div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
-  <button id="bgmBtn" style="background: #d4af37; color: #1a1a2e; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">
-    开启音乐
-  </button>
-</div>
-
 <script>
 const bgm = document.getElementById('bgm');
-const bgmBtn = document.getElementById('bgmBtn');
-let isPlaying = false;
-
-bgmBtn.addEventListener('click', function() {
-  if (isPlaying) {
-    bgm.pause();
-    bgmBtn.textContent = '关闭音乐';
-  } else {
-    bgm.play();
-    bgmBtn.textContent = '开启音乐';
-  }
-  isPlaying = !isPlaying;
+// 第一次点击页面时播放音乐
+document.addEventListener('click', function playBgmOnce() {
+  bgm.play();
   bgm.volume = 0.4;
+  document.removeEventListener('click', playBgmOnce);
 });
 </script>
 </body>
