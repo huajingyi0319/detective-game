@@ -175,6 +175,23 @@
         }
         #backChapter1Btn{left:20px;}
         #menuBtn{left:120px;}
+
+        /* 第三章解锁按钮 和第一章样式统一 */
+        #nextChapter3Btn{
+            display:none;
+            position:fixed;
+            bottom:30px;
+            left:50%;
+            transform:translateX(-50%);
+            background:#d4af37;
+            color:#1a1a2e;
+            border:none;
+            padding:12px 30px;
+            border-radius:6px;
+            font-size:16px;
+            cursor:pointer;
+            z-index:1000;
+        }
     </style>
 </head>
 <body>
@@ -185,11 +202,11 @@
         <h1 class="chapter-title">第二章 深宫秘影·遗令玄机</h1>
 
         <div class="story-panel">
-            <p>【承接第一章·乾陵凶案过后】</p >
-            <p>裴昭身死，鎏金雌钥失窃，陵监署被全面封锁，五名嫌疑人皆被就地看管。</p >
-            <p>你已集齐案发现场全部物证，却发现线索皆指向更深层的宫廷秘辛——武则天临终留有密令，鎏金钥匙分雌雄两把，并非凡俗陵门钥匙，而是掌控乾陵陪葬规制、平衡武李两党格局的信物。</p >
-            <p>为求证证词矛盾、深挖众人隐藏身份，你移步行宫偏苑，此处曾是武则天晚年起居之地，亦是多名嫌疑人过往交集之所。</p >
-            <p>深宫寂寂，暗流涌动，真正的阴谋，才刚刚浮出水面……</p >
+            <p>【承接第一章·乾陵凶案过后】</p>
+            <p>裴昭身死，鎏金雌钥失窃，陵监署被全面封锁，五名嫌疑人皆被就地看管。</p>
+            <p>你已集齐案发现场全部物证，却发现线索皆指向更深层的宫廷秘辛——武则天临终留有密令，鎏金钥匙分雌雄两把，并非凡俗陵门钥匙，而是掌控乾陵陪葬规制、平衡武李两党格局的信物。</p>
+            <p>为求证证词矛盾、深挖众人隐藏身份，你移步行宫偏苑，此处曾是武则天晚年起居之地，亦是多名嫌疑人过往交集之所。</p>
+            <p>深宫寂寂，暗流涌动，真正的阴谋，才刚刚浮出水面……</p>
         </div>
 
         <div class="scene-box">
@@ -203,49 +220,53 @@
         <div class="suspect-panel">
             <div class="suspect-card" data-name="苏凝" data-testi="我只知乾陵构造规制，从未接触宫廷遗令。裴大人身死我亦惋惜，武李之争我无心掺和，只想守住先帝陵寝安稳。">
                 <h4>苏凝</h4>
-                <p>乾陵陵监女官</p >
+                <p>乾陵陵监女官</p>
             </div>
             <div class="suspect-card" data-name="武攸宁" data-testi="虎纹佩虽属我物，却早已遗失。我只求保住武氏基业，从无下毒窃钥之心，更不知什么雌雄双钥秘闻。">
                 <h4>武攸宁</h4>
-                <p>武氏宗族代表</p >
+                <p>武氏宗族代表</p>
             </div>
             <div class="suspect-card" data-name="李千里" data-testi="我护陵只为李唐江山稳固，虽与裴大人有私书信往来，也只论陵寝规制，从不涉及朝堂密令与钥匙秘辛。">
                 <h4>李千里</h4>
-                <p>李唐护陵使</p >
+                <p>李唐护陵使</p>
             </div>
             <div class="suspect-card" data-name="林晚" data-testi="我只为缝制祭祀衣物听命行事，不懂朝堂党争，亦不知遗令秘事。谨遵先帝遗命安分守己，别无他念。">
                 <h4>林晚</h4>
-                <p>宫廷绣娘</p >
+                <p>宫廷绣娘</p>
             </div>
             <div class="suspect-card" data-name="张谏之" data-testi="我督办封陵只为政局安定，虽与裴昭有过对峙，也只是规劝其以朝堂大局为重，从未动用秘药与阴谋手段。">
                 <h4>张谏之</h4>
-                <p>当朝宰相</p >
+                <p>当朝宰相</p>
             </div>
         </div>
 
         <div class="clue-bag">
             <h3>线索背包</h3>
             <div class="clue-list" id="clueList">
-                <p>暂无线索，点击现场光点进行搜证</p >
+                <p>暂无线索，点击现场光点进行搜证</p>
             </div>
         </div>
     </div>
 
+    <!-- 第二章集齐线索 弹出进入第三章按钮 -->
+    <button id="nextChapter3Btn">进入第三章 终章</button>
+
     <div class="mask" id="mask"></div>
     <div class="clue-modal" id="clueModal1">
         <h3>发现线索</h3>
-        <p id="clueContent"></p >
+        <p id="clueContent"></p>
         <button class="close-btn" onclick="closeClue()">关闭</button>
     </div>
 
     <div class="testimony-modal" id="testimonyModal">
         <h3 id="suspectName"></h3>
-        <p id="testimonyContent"></p >
+        <p id="testimonyContent"></p>
         <button class="close-btn" onclick="closeTestimony()">关闭</button>
     </div>
 
     <script>
-        const TOTAL_CLUE_NUM = 10; // 两章共10条
+        const TOTAL_CLUE_NUM = 10; // 一二章合计10条
+        const CHAPTER2_CLUE_COUNT = 5; // 第二章本身5条
         let collectedClues = new Set();
         const saveKey = "qianling_save";
 
@@ -256,12 +277,14 @@
         const clueList = document.getElementById('clueList');
         const backBtn = document.getElementById('backChapter1Btn');
         const menuBtn = document.getElementById('menuBtn');
+        const next3Btn = document.getElementById('nextChapter3Btn');
 
-        // ==== 存档系统（和第一章共用） ====
+        // ==== 存档系统 ====
         function saveProgress() {
             const data = {
                 collected: [...collectedClues],
-                chapter2Unlocked: true // 进第二章即视为已解锁
+                chapter2Unlocked: true,
+                chapter3Unlocked: collectedClues.size >= TOTAL_CLUE_NUM
             };
             localStorage.setItem(saveKey, JSON.stringify(data));
         }
@@ -280,6 +303,7 @@
                 if (point) point.classList.add('collected');
             });
             renderClues();
+            checkUnlockChapter3();
         }
 
         // ==== 搜证 ====
@@ -296,13 +320,14 @@
 
                 this.classList.add('collected');
                 renderClues();
+                checkUnlockChapter3();
                 saveProgress();
             });
         });
 
         function renderClues() {
             if (collectedClues.size === 0) {
-                clueList.innerHTML = '<p>暂无线索，点击现场光点进行搜证</p >';
+                clueList.innerHTML = '<p>暂无线索，点击现场光点进行搜证</p>';
                 return;
             }
             clueList.innerHTML = '';
@@ -316,12 +341,22 @@
             });
         }
 
+        // 关键：一二章集齐10条，解锁第三章按钮
+        function checkUnlockChapter3() {
+            if (collectedClues.size >= TOTAL_CLUE_NUM) {
+                next3Btn.style.display = 'block';
+            }
+        }
+
         // ==== 跳转 ====
         backBtn.onclick = function() {
             window.location.href = "index.html";
         };
         menuBtn.onclick = function() {
             window.location.href = "menu.html";
+        };
+        next3Btn.onclick = function() {
+            window.location.href = "chapter3.html";
         };
 
         // ==== 嫌疑人证词 ====

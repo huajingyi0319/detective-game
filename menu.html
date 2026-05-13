@@ -47,29 +47,38 @@
   <h1>乾陵残卷</h1>
   <button class="chapter-btn" id="ch1Btn">第一章：乾陵凶案（已解锁）</button>
   <button class="chapter-btn" id="ch2Btn" disabled>第二章：深宫秘影（未解锁）</button>
-  <div class="tip" id="tipTxt">提示：集齐第一章全部线索后解锁第二章</div>
+  <button class="chapter-btn" id="ch3Btn" disabled>第三章：真相落定（未解锁）</button>
+  <div class="tip" id="tipTxt">集齐第一章线索解锁后续章节</div>
 
   <script>
     const saveKey = "qianling_save";
-    const totalChapter1Clues = 5;
+    const totalCh1 = 5;
+    const totalCh2 = 10;
 
     window.onload = () => {
-      const saved = localStorage.getItem(saveKey);
       let collected = [];
-      if (saved) {
-        try {
+      const saved = localStorage.getItem(saveKey);
+      if(saved){
+        try{
           const data = JSON.parse(saved);
           collected = data.collected || [];
-        } catch (e) {}
-      }
-      // 第一章集齐5条，解锁第二章
-      if (collected.filter(x => parseInt(x) <= totalChapter1Clues).length >= totalChapter1Clues) {
-        document.getElementById('ch2Btn').disabled = false;
-        document.getElementById('tipTxt').innerText = "第二章已解锁，可直接进入";
+        }catch(e){}
       }
 
-      document.getElementById('ch1Btn').onclick = () => window.location.href = 'index.html';
-      document.getElementById('ch2Btn').onclick = () => window.location.href = 'chapter2.html';
+      const ch1Done = collected.filter(x=>parseInt(x)<=totalCh1).length >= totalCh1;
+      const ch2Done = collected.length >= totalCh2;
+
+      if(ch1Done){
+        document.getElementById('ch2Btn').disabled = false;
+      }
+      if(ch2Done){
+        document.getElementById('ch3Btn').disabled = false;
+        document.getElementById('tipTxt').innerText = "全部章节已解锁，可探索完整结局";
+      }
+
+      document.getElementById('ch1Btn').onclick = ()=>location.href='index.html';
+      document.getElementById('ch2Btn').onclick = ()=>location.href='chapter2.html';
+      document.getElementById('ch3Btn').onclick = ()=>location.href='chapter3.html';
     };
   </script>
 </body>
