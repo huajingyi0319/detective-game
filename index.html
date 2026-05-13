@@ -168,6 +168,22 @@
             background: rgba(0, 0, 0, 0.8);
             z-index: 998;
         }
+        /* 第二章解锁按钮 */
+        #nextChapterBtn{
+            display:none;
+            position:fixed;
+            bottom:30px;
+            left:50%;
+            transform:translateX(-50%);
+            background:#d4af37;
+            color:#1a1a2e;
+            border:none;
+            padding:12px 30px;
+            border-radius:6px;
+            font-size:16px;
+            cursor:pointer;
+            z-index:1000;
+        }
     </style>
 </head>
 <body>
@@ -223,9 +239,12 @@
         </div>
     </div>
 
+    <!-- 第二章按钮 集齐5条自动出现 -->
+    <button id="nextChapterBtn">进入第二章</button>
+
     <!-- 线索弹窗 -->
     <div class="mask" id="mask"></div>
-    <div class="clue-modal" id="clueModal">
+    <div class="clue-modal" id="clueModal1">
         <h3>发现线索</h3>
         <p id="clueContent"></p >
         <button class="close-btn" onclick="closeClue()">关闭</button>
@@ -239,30 +258,35 @@
     </div>
 
     <script>
-        // 搜证功能
+        // 总线索数量 一共5条
+        const TOTAL_CLUE_NUM = 5;
+        let collectedClues = [];
+
         const searchPoints = document.querySelectorAll('.search-point');
-        const clueModal = document.getElementById('clueModal');
+        const clueModal = document.getElementById('clueModal1');
         const testimonyModal = document.getElementById('testimonyModal');
         const mask = document.getElementById('mask');
         const clueList = document.getElementById('clueList');
-        let collectedClues = [];
+        const nextBtn = document.getElementById('nextChapterBtn');
 
+        // 搜证
         searchPoints.forEach(point => {
             point.addEventListener('click', function() {
                 const clue = this.getAttribute('data-clue');
+                // 重复线索不再添加
+                if(collectedClues.includes(clue)) return;
+
                 document.getElementById('clueContent').innerText = clue;
                 clueModal.style.display = 'block';
                 mask.style.display = 'block';
-                
-                // 加入线索背包
-                if(!collectedClues.includes(clue)) {
-                    collectedClues.push(clue);
-                    renderClues();
-                }
+
+                collectedClues.push(clue);
+                renderClues();
+                checkUnlockChapter2();
             });
         });
 
-        // 渲染线索
+        // 渲染线索背包
         function renderClues() {
             if(collectedClues.length === 0) {
                 clueList.innerHTML = '<p>暂无线索，点击现场光点进行搜证</p >';
@@ -275,6 +299,18 @@
                 item.innerText = clue;
                 clueList.appendChild(item);
             });
+        }
+
+        // 检查是否集齐全部线索，集齐才解锁第二章
+        function checkUnlockChapter2(){
+            if(collectedClues.length >= TOTAL_CLUE_NUM){
+                nextBtn.style.display = 'block';
+            }
+        }
+
+        // 第二章跳转 后面你建 chapter2.html 就可以直接跳
+        nextBtn.onclick = function(){
+            window.location.href = "chapter2.html";
         }
 
         // 嫌疑人证词
@@ -300,6 +336,7 @@
             mask.style.display = 'none';
         }
     </script>
+
 <!-- 背景音乐（点击页面任意位置播放） -->
 <audio id="bgm" loop>
   <source src="bgm.mp3" type="audio/mpeg">
@@ -308,12 +345,12 @@
 
 <script>
 const bgm = document.getElementById('bgm');
-// 第一次点击页面时播放音乐
 document.addEventListener('click', function playBgmOnce() {
   bgm.play();
   bgm.volume = 0.4;
   document.removeEventListener('click', playBgmOnce);
 });
 </script>
+
 </body>
 </html>
