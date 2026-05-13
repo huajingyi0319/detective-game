@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>乾陵残卷 - 章节选择</title>
+  <style>
+    body {
+      background: #1a1a2e;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+        font-size: 36px;
+        color: #d4af37;
+        margin-bottom: 40px;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+    .chapter-btn {
+      margin: 10px;
+      padding: 15px 30px;
+      background: #d4af37;
+      color: #1a1a2e;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 18px;
+      width: 280px;
+    }
+    .chapter-btn:disabled {
+      background: #666;
+      cursor: not-allowed;
+      color: #999;
+    }
+    .tip {
+        margin-top: 20px;
+        color: #aaa;
+        font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>乾陵残卷</h1>
+  <button class="chapter-btn" id="ch1Btn">第一章：乾陵凶案（已解锁）</button>
+  <button class="chapter-btn" id="ch2Btn" disabled>第二章：深宫秘影（未解锁）</button>
+  <div class="tip" id="tipTxt">提示：集齐第一章全部线索后解锁第二章</div>
+
+  <script>
+    const saveKey = "qianling_save";
+    const totalChapter1Clues = 5;
+
+    window.onload = () => {
+      const saved = localStorage.getItem(saveKey);
+      let collected = [];
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          collected = data.collected || [];
+        } catch (e) {}
+      }
+      // 第一章集齐5条，解锁第二章
+      if (collected.filter(x => parseInt(x) <= totalChapter1Clues).length >= totalChapter1Clues) {
+        document.getElementById('ch2Btn').disabled = false;
+        document.getElementById('tipTxt').innerText = "第二章已解锁，可直接进入";
+      }
+
+      document.getElementById('ch1Btn').onclick = () => window.location.href = 'index.html';
+      document.getElementById('ch2Btn').onclick = () => window.location.href = 'chapter2.html';
+    };
+  </script>
+</body>
+</html>

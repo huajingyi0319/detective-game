@@ -16,13 +16,11 @@
             color: #e0e0e0;
             line-height: 1.6;
         }
-        /* 游戏容器 */
         .game-container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
-        /* 章节标题 */
         .chapter-title {
             text-align: center;
             font-size: 28px;
@@ -31,7 +29,6 @@
             letter-spacing: 2px;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
-        /* 剧情面板 */
         .story-panel {
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid #3a3a5a;
@@ -40,7 +37,6 @@
             margin-bottom: 25px;
             font-size: 16px;
         }
-        /* 场景容器 */
         .scene-box {
             position: relative;
             width: 100%;
@@ -52,7 +48,6 @@
             margin-bottom: 25px;
             overflow: hidden;
         }
-        /* 搜证点 */
         .search-point {
             position: absolute;
             width: 30px;
@@ -63,10 +58,13 @@
             transition: all 0.3s;
         }
         .search-point:hover {
-            background: rgba212, 175, 55, 0.8;
+            background: rgba(212, 175, 55, 0.8);
             transform: scale(1.2);
         }
-        /* 线索弹窗 */
+        .search-point.collected {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid #d4af37;
+        }
         .clue-modal {
             display: none;
             position: fixed;
@@ -94,7 +92,6 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        /* 嫌疑人面板 */
         .suspect-panel {
             display: flex;
             flex-wrap: wrap;
@@ -120,7 +117,6 @@
             color: #d4af37;
             margin-bottom: 10px;
         }
-        /* 证词弹窗 */
         .testimony-modal {
             display: none;
             position: fixed;
@@ -135,7 +131,6 @@
             width: 80%;
             max-width: 700px;
         }
-        /* 线索背包 */
         .clue-bag {
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid #3a3a5a;
@@ -157,7 +152,6 @@
             border-radius: 4px;
             font-size: 14px;
         }
-        /* 遮罩层 */
         .mask {
             display: none;
             position: fixed;
@@ -168,28 +162,28 @@
             background: rgba(0, 0, 0, 0.8);
             z-index: 998;
         }
-        /* 返回第一章按钮 */
-        #backChapter1Btn{
+        #backChapter1Btn, #menuBtn{
             position:fixed;
-            top:30px;
-            left:50%;
-            transform:translateX(-50%);
+            top:20px;
             background:#d4af37;
             color:#1a1a2e;
             border:none;
-            padding:10px 25px;
-            border-radius:6px;
-            font-size:16px;
+            padding:8px 15px;
+            border-radius:4px;
             cursor:pointer;
             z-index:1000;
         }
+        #backChapter1Btn{left:20px;}
+        #menuBtn{left:120px;}
     </style>
 </head>
 <body>
+    <button id="backChapter1Btn">← 返回第一章</button>
+    <button id="menuBtn">≡ 主菜单</button>
+
     <div class="game-container">
         <h1 class="chapter-title">第二章 深宫秘影·遗令玄机</h1>
 
-        <!-- 剧情面板 -->
         <div class="story-panel">
             <p>【承接第一章·乾陵凶案过后】</p >
             <p>裴昭身死，鎏金雌钥失窃，陵监署被全面封锁，五名嫌疑人皆被就地看管。</p >
@@ -198,17 +192,14 @@
             <p>深宫寂寂，暗流涌动，真正的阴谋，才刚刚浮出水面……</p >
         </div>
 
-        <!-- 第二章场景 -->
         <div class="scene-box">
-            <!-- 第二章专属搜证点，贴合你的推理文案 -->
-            <div class="search-point" style="top: 180px; left: 280px;" data-clue="宫廷绣筐，内有特制金线，与死者钥匙袋缝合针法完全一致"></div>
-            <div class="search-point" style="top: 260px; left: 520px;" data-clue="武则天遗令残稿，提及乾陵陪葬权均分，不许两党借帝陵兴乱"></div>
-            <div class="search-point" style="top: 310px; left: 360px;" data-clue="祭祀夹层服饰，内里留有钥匙压痕，丝线与裴昭腰间袋料同源"></div>
-            <div class="search-point" style="top: 210px; left: 460px;" data-clue="草木犀毒药理手记，记录小剂量长期投毒可延时毒发，无迹可寻"></div>
-            <div class="search-point" style="top: 280px; left: 580px;" data-clue="密信残页，记载雌雄双钥典故，雌钥留陵、雄钥藏宫"></div>
+            <div class="search-point" style="top: 180px; left: 280px;" data-clue="6" data-content="宫廷绣筐，内有特制金线，与死者钥匙袋缝合针法完全一致"></div>
+            <div class="search-point" style="top: 260px; left: 520px;" data-clue="7" data-content="武则天遗令残稿，提及乾陵陪葬权均分，不许两党借帝陵兴乱"></div>
+            <div class="search-point" style="top: 310px; left: 360px;" data-clue="8" data-content="祭祀夹层服饰，内里留有钥匙压痕，丝线与裴昭腰间袋料同源"></div>
+            <div class="search-point" style="top: 210px; left: 460px;" data-clue="9" data-content="草木犀毒药理手记，记录小剂量长期投毒可延时毒发，无迹可寻"></div>
+            <div class="search-point" style="top: 280px; left: 580px;" data-clue="10" data-content="密信残页，记载雌雄双钥典故，雌钥留陵、雄钥藏宫"></div>
         </div>
 
-        <!-- 嫌疑人二次问询（延续第一章五人，新增深层证词矛盾） -->
         <div class="suspect-panel">
             <div class="suspect-card" data-name="苏凝" data-testi="我只知乾陵构造规制，从未接触宫廷遗令。裴大人身死我亦惋惜，武李之争我无心掺和，只想守住先帝陵寝安稳。">
                 <h4>苏凝</h4>
@@ -232,7 +223,6 @@
             </div>
         </div>
 
-        <!-- 线索背包 -->
         <div class="clue-bag">
             <h3>线索背包</h3>
             <div class="clue-list" id="clueList">
@@ -241,10 +231,6 @@
         </div>
     </div>
 
-    <!-- 返回第一章按钮 -->
-    <button id="backChapter1Btn">← 返回第一章</button>
-
-    <!-- 线索弹窗 -->
     <div class="mask" id="mask"></div>
     <div class="clue-modal" id="clueModal1">
         <h3>发现线索</h3>
@@ -252,7 +238,6 @@
         <button class="close-btn" onclick="closeClue()">关闭</button>
     </div>
 
-    <!-- 证词弹窗 -->
     <div class="testimony-modal" id="testimonyModal">
         <h3 id="suspectName"></h3>
         <p id="testimonyContent"></p >
@@ -260,8 +245,9 @@
     </div>
 
     <script>
-        const TOTAL_CLUE_NUM = 5;
-        let collectedClues = [];
+        const TOTAL_CLUE_NUM = 10; // 两章共10条
+        let collectedClues = new Set();
+        const saveKey = "qianling_save";
 
         const searchPoints = document.querySelectorAll('.search-point');
         const clueModal = document.getElementById('clueModal1');
@@ -269,43 +255,76 @@
         const mask = document.getElementById('mask');
         const clueList = document.getElementById('clueList');
         const backBtn = document.getElementById('backChapter1Btn');
+        const menuBtn = document.getElementById('menuBtn');
 
-        // 搜证逻辑
+        // ==== 存档系统（和第一章共用） ====
+        function saveProgress() {
+            const data = {
+                collected: [...collectedClues],
+                chapter2Unlocked: true // 进第二章即视为已解锁
+            };
+            localStorage.setItem(saveKey, JSON.stringify(data));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem(saveKey);
+            if (!saved) return;
+            try {
+                const data = JSON.parse(saved);
+                collectedClues = new Set(data.collected || []);
+            } catch (e) {
+                collectedClues = new Set();
+            }
+            collectedClues.forEach(id => {
+                const point = document.querySelector(`.search-point[data-clue="${id}"]`);
+                if (point) point.classList.add('collected');
+            });
+            renderClues();
+        }
+
+        // ==== 搜证 ====
         searchPoints.forEach(point => {
             point.addEventListener('click', function() {
-                const clue = this.getAttribute('data-clue');
-                if(collectedClues.includes(clue)) return;
+                const id = this.getAttribute('data-clue');
+                const content = this.getAttribute('data-content');
+                if (collectedClues.has(id)) return;
 
-                document.getElementById('clueContent').innerText = clue;
+                collectedClues.add(id);
+                document.getElementById('clueContent').innerText = content;
                 clueModal.style.display = 'block';
                 mask.style.display = 'block';
 
-                collectedClues.push(clue);
+                this.classList.add('collected');
                 renderClues();
+                saveProgress();
             });
         });
 
-        // 渲染线索背包
         function renderClues() {
-            if(collectedClues.length === 0) {
+            if (collectedClues.size === 0) {
                 clueList.innerHTML = '<p>暂无线索，点击现场光点进行搜证</p >';
                 return;
             }
             clueList.innerHTML = '';
-            collectedClues.forEach(clue => {
+            collectedClues.forEach(id => {
+                const point = document.querySelector(`.search-point[data-clue="${id}"]`);
+                const content = point.getAttribute('data-content');
                 const item = document.createElement('div');
                 item.className = 'clue-item';
-                item.innerText = clue;
+                item.innerText = content;
                 clueList.appendChild(item);
             });
         }
 
-        // 返回第一章
-        backBtn.onclick = function(){
+        // ==== 跳转 ====
+        backBtn.onclick = function() {
             window.location.href = "index.html";
-        }
+        };
+        menuBtn.onclick = function() {
+            window.location.href = "menu.html";
+        };
 
-        // 嫌疑人证词
+        // ==== 嫌疑人证词 ====
         const suspectCards = document.querySelectorAll('.suspect-card');
         suspectCards.forEach(card => {
             card.addEventListener('click', function() {
@@ -318,7 +337,6 @@
             });
         });
 
-        // 关闭弹窗
         function closeClue() {
             clueModal.style.display = 'none';
             mask.style.display = 'none';
@@ -327,21 +345,20 @@
             testimonyModal.style.display = 'none';
             mask.style.display = 'none';
         }
+
+        window.onload = loadProgress;
     </script>
 
-<!-- 共用背景音乐 不用额外文件 -->
-<audio id="bgm" loop>
-  <source src="bgm.mp3" type="audio/mpeg">
-  你的浏览器不支持音频播放
-
-<script>
-const bgm = document.getElementById('bgm');
-document.addEventListener('click', function playBgmOnce() {
-  bgm.play();
-  bgm.volume = 0.4;
-  document.removeEventListener('click', playBgmOnce);
-});
-</script>
-
+    <audio id="bgm" loop>
+      <source src="bgm.mp3" type="audio/mpeg">
+    
+    <script>
+    const bgm = document.getElementById('bgm');
+    document.addEventListener('click', function playBgmOnce() {
+      bgm.play();
+      bgm.volume = 0.4;
+      document.removeEventListener('click', playBgmOnce);
+    });
+    </script>
 </body>
 </html>
