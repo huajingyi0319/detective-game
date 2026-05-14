@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>乾陵残卷 - 章节菜单</title>
+    <title>乾陵残卷・鎏金钥谜案 - 章节菜单</title>
     <style>
         * {
             margin: 0;
@@ -19,21 +19,40 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            background-image: url('bg-menu.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-blend-mode: overlay;
         }
         .title {
-            font-size: 36px;
+            font-size: 42px;
             color: #d4af37;
-            margin-bottom: 50px;
-            text-shadow: 0 0 12px rgba(212,175,55,0.5);
-            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(212,175,55,0.7);
+            letter-spacing: 6px;
+            text-align: center;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.8;
         }
         .menu-wrap {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
+            background: rgba(26,26,46,0.8);
+            padding: 30px 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(212,175,55,0.3);
         }
         .menu-btn {
-            width: 260px;
+            width: 280px;
             padding: 16px 0;
             font-size: 18px;
             border: 2px solid #d4af37;
@@ -42,10 +61,12 @@
             border-radius: 8px;
             cursor: pointer;
             transition: 0.3s;
+            letter-spacing: 1px;
         }
         .menu-btn:hover {
             background: #d4af37;
             color: #1a1a2e;
+            transform: translateY(-3px);
         }
         .menu-btn.lock {
             opacity: 0.35;
@@ -56,26 +77,83 @@
         .menu-btn.lock:hover {
             background: transparent;
             color: #999;
+            transform: none;
+        }
+        .reset-btn {
+            margin-top: 25px;
+            background: rgba(58,58,85,0.6);
+            border-color: #666;
+            color: #eee;
+        }
+        .reset-btn:hover {
+            background: #3a3a5a;
+            color: #fff;
+            border-color: #888;
+        }
+        /* BGM控制按钮 */
+        .bgm-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(212,175,55,0.8);
+            color: #1a1a2e;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
-    <h1 class="title">乾陵残卷</h1>
+    <h1 class="title">乾陵残卷・鎏金钥谜案</h1>
+    <p class="subtitle">唐神龙元年・乾陵封藏前夕，鎏金鸳鸯钥失窃，将作大匠离奇身亡，密闭陵监署内，真凶藏于五人之中——你，大理寺少卿，需在三个时辰内，破谜寻凶，守护李唐龙脉</p>
+    
     <div class="menu-wrap">
-        <button class="menu-btn" id="ch1">第一章 凶案初现</button>
-        <button class="menu-btn lock" id="ch2" disabled>第二章 深宫秘影（未解锁）</button>
-        <button class="menu-btn lock" id="ch3" disabled>第三章 真相落定（未解锁）</button>
-
-        <button class="menu-btn" style="margin-top:30px;background:#3a3a5a;border-color:#666;color:#eee;" id="resetBtn">重置全部存档</button>
+        <button class="menu-btn" id="ch1">第一章 陵监惊变</button>
+        <button class="menu-btn lock" id="ch2" disabled>第二章 秘影丛生（未解锁）</button>
+        <button class="menu-btn lock" id="ch3" disabled>第三章 真相昭雪（未解锁）</button>
+        <button class="menu-btn reset-btn" id="resetBtn">重置全部存档</button>
     </div>
+
+    <!-- BGM控制按钮 -->
+    <button class="bgm-btn" id="bgmBtn" onclick="toggleBgm()">▶</button>
+    <audio id="bgm" loop preload="metadata">
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
         const saveKey = "qianling_save";
         const ch1 = document.getElementById('ch1');
         const ch2 = document.getElementById('ch2');
         const ch3 = document.getElementById('ch3');
+        const bgm = document.getElementById('bgm');
+        const bgmBtn = document.getElementById('bgmBtn');
+        let bgmPlaying = false;
 
         let collected = new Set();
+
+        // BGM控制（解决自动播放问题，用户点击后唤醒）
+        function toggleBgm() {
+            if (bgmPlaying) {
+                bgm.pause();
+                bgmBtn.innerText = "▶";
+            } else {
+                bgm.play().catch(() => {
+                    // 若首次点击失败，再次触发（兼容所有浏览器）
+                    document.body.click();
+                    bgm.play();
+                });
+                bgm.volume = 0.3;
+                bgmBtn.innerText = "⏸";
+            }
+            bgmPlaying = !bgmPlaying;
+        }
 
         // 读取存档
         function loadSave(){
@@ -92,37 +170,55 @@
             let num = collected.size;
 
             // 第一章永远可进
-            ch1.onclick = ()=>location.href="index.html";
+            ch1.onclick = ()=>{
+                toggleBgm(); // 进入游戏自动播放BGM
+                location.href="index.html";
+            };
 
             // 线索 >=5 解锁第二章
             if(num >= 5){
                 ch2.classList.remove('lock');
                 ch2.disabled = false;
-                ch2.innerText = "第二章 深宫秘影";
-                ch2.onclick = ()=>location.href="chapter2.html";
+                ch2.innerText = "第二章 秘影丛生";
+                ch2.onclick = ()=>{
+                    toggleBgm();
+                    location.href="chapter2.html";
+                };
             }
 
             // 线索 >=10 解锁第三章
             if(num >= 10){
                 ch3.classList.remove('lock');
                 ch3.disabled = false;
-                ch3.innerText = "第三章 真相落定";
-                ch3.onclick = ()=>location.href="chapter3.html";
+                ch3.innerText = "第三章 真相昭雪";
+                ch3.onclick = ()=>{
+                    toggleBgm();
+                    location.href="chapter3.html";
+                };
             }
         }
 
         // 重置存档
         document.getElementById('resetBtn').onclick = function(){
-            if(confirm("确定要重置全部游戏进度吗？将清空所有线索！")){
+            if(confirm("确定要重置全部游戏进度吗？将清空所有线索，恢复初始状态！")){
                 localStorage.removeItem(saveKey);
-                alert("已重置，请刷新页面");
+                bgm.pause();
+                bgmPlaying = false;
+                bgmBtn.innerText = "▶";
+                alert("存档已重置，请刷新页面重新开始");
                 location.reload();
             }
         }
 
+        // 页面加载完成后执行
         window.onload = function(){
             loadSave();
             checkUnlock();
+            // 点击页面任意位置可唤醒BGM（备用方案）
+            document.body.addEventListener('click', function wakeBgm() {
+                bgm.load();
+                document.body.removeEventListener('click', wakeBgm);
+            }, { once: true });
         }
     </script>
 </body>
