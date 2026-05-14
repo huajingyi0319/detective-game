@@ -265,8 +265,8 @@
     </div>
 
     <script>
-        const TOTAL_CLUE_NUM = 10; // 一二章合计10条
-        const CHAPTER2_CLUE_COUNT = 5; // 第二章本身5条
+        // 一二章合计10条线索，集齐解锁第三章
+        const TOTAL_ALL_CLUE = 10;
         let collectedClues = new Set();
         const saveKey = "qianling_save";
 
@@ -284,7 +284,7 @@
             const data = {
                 collected: [...collectedClues],
                 chapter2Unlocked: true,
-                chapter3Unlocked: collectedClues.size >= TOTAL_CLUE_NUM
+                chapter3Unlocked: collectedClues.size >= TOTAL_ALL_CLUE
             };
             localStorage.setItem(saveKey, JSON.stringify(data));
         }
@@ -298,12 +298,13 @@
             } catch (e) {
                 collectedClues = new Set();
             }
+            // 恢复已收集线索的样式
             collectedClues.forEach(id => {
                 const point = document.querySelector(`.search-point[data-clue="${id}"]`);
                 if (point) point.classList.add('collected');
             });
             renderClues();
-            checkUnlockChapter3();
+            checkUnlockChapter3(); // 加载存档后立刻检查解锁状态
         }
 
         // ==== 搜证 ====
@@ -320,7 +321,7 @@
 
                 this.classList.add('collected');
                 renderClues();
-                checkUnlockChapter3();
+                checkUnlockChapter3(); // 每次收集后检查解锁状态
                 saveProgress();
             });
         });
@@ -341,9 +342,9 @@
             });
         }
 
-        // 关键：一二章集齐10条，解锁第三章按钮
+        // 关键：只要全局线索≥10条，立刻解锁第三章按钮
         function checkUnlockChapter3() {
-            if (collectedClues.size >= TOTAL_CLUE_NUM) {
+            if (collectedClues.size >= TOTAL_ALL_CLUE) {
                 next3Btn.style.display = 'block';
             }
         }
