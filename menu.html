@@ -118,13 +118,12 @@
             .bgm-btn { width: 36px; height: 36px; font-size: 16px; right: 15px; top: 15px; }
         }
 
-        @media screen and (max-width: 480px) {
-            .title { font-size: 22px; letter-spacing: 3px; padding: 0 15px; }
-            .subtitle { font-size: 13px; margin-bottom: 30px; line-height: 1.6; }
-            .menu-wrap { padding: 15px 20px; gap: 12px; width: 90%; }
-            .menu-btn { width: 100%; padding: 12px 0; font-size: 15px; }
-            .reset-btn { margin-top: 15px; }
-            .bgm-btn { width: 32px; height: 32px; font-size: 14px; right: 10px; top: 10px; }
+        @media screen and (orientation: portrait) and (max-width: 480px) {
+            .title { font-size: 18px; letter-spacing: 2px; }
+            .subtitle { font-size: 12px; margin-bottom: 25px; line-height: 1.5; }
+            .menu-wrap { padding: 12px 15px; gap: 10px; width: 92%; }
+            .menu-btn { padding: 10px 0; font-size: 14px; }
+            .bgm-btn { width: 28px; height: 28px; font-size: 12px; right: 8px; top: 8px; }
         }
     </style>
 </head>
@@ -156,17 +155,13 @@
 
         let collected = new Set();
 
-        // BGM控制（解决自动播放问题，用户点击后唤醒）
+        // BGM控制
         function toggleBgm() {
             if (bgmPlaying) {
                 bgm.pause();
                 bgmBtn.innerText = "▶";
             } else {
-                bgm.play().catch(() => {
-                    // 若首次点击失败，再次触发（兼容所有浏览器）
-                    document.body.click();
-                    bgm.play();
-                });
+                bgm.play().catch(() => {});
                 bgm.volume = 0.3;
                 bgmBtn.innerText = "⏸";
             }
@@ -232,11 +227,6 @@
         window.onload = function(){
             loadSave();
             checkUnlock();
-            // 点击页面任意位置可唤醒BGM（备用方案）
-            document.body.addEventListener('click', function wakeBgm() {
-                bgm.load();
-                document.body.removeEventListener('click', wakeBgm);
-            }, { once: true });
         }
     </script>
 </body>

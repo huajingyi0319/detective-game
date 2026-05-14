@@ -72,20 +72,15 @@
             .bgm-btn { width:36px; height:36px; font-size:16px; right:15px; top:15px; }
         }
 
-        @media screen and (max-width: 480px) {
-            .game-container { padding:10px; }
-            .chapter-title { font-size:20px; }
-            .chapter-subtitle { font-size:12px; }
-            .story-panel { padding:12px; font-size:13px; }
-            .scene-box { height:250px; }
-            .search-point { width:20px; height:20px; }
-            .suspect-card { min-width:100%; flex:1 1 100%; }
-            .clue-modal { padding:15px; }
-            .testimony-modal { padding:15px; }
-            .clue-list { gap:8px; }
-            .clue-item { font-size:12px; padding:6px 10px; }
-            #menuBtn { left:85px; }
-            #nextBtn { bottom:15px; width:85%; }
+        @media screen and (orientation: portrait) and (max-width: 480px) {
+            .game-container { margin-bottom: 100px; }
+            .scene-box { height: 220px; }
+            .story-panel { font-size: 12px; line-height: 1.6; }
+            .suspect-card { padding: 10px; }
+            .nav-btn { padding: 5px 10px; font-size: 12px; }
+            #menuBtn { left: 75px; }
+            #nextBtn { bottom: 15px; width: 88%; }
+            .bgm-btn { width: 30px; height: 30px; font-size: 14px; }
         }
     </style>
 </head>
@@ -166,14 +161,12 @@
                 bgm.pause();
                 bgmBtn.innerText = "▶";
             } else {
-                bgm.play().catch(() => {
-                    document.body.click();
-                    bgm.play();
-                });
+                bgm.play().catch(() => {});
                 bgm.volume = 0.3;
                 bgmBtn.innerText = "⏸";
             }
             bgmPlaying = !bgmPlaying;
+            save();
         }
 
         // 读取存档
@@ -284,10 +277,6 @@
 
         window.onload=function(){
             load();
-            document.body.addEventListener('click', function wakeBgm() {
-                bgm.load();
-                document.body.removeEventListener('click', wakeBgm);
-            }, { once: true });
         }
     </script>
 </body>

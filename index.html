@@ -86,6 +86,16 @@
             #backBtn { left:15px; }
             #nextChapterBtn { bottom:15px; width:85%; }
         }
+
+        @media screen and (orientation: portrait) and (max-width: 480px) {
+            .game-container { margin-bottom: 100px; }
+            .scene-box { height: 220px; }
+            .story-panel { font-size: 12px; line-height: 1.6; }
+            .suspect-card { padding: 10px; }
+            .nav-btn { padding: 5px 10px; font-size: 12px; }
+            #menuBtn { left: 75px; }
+            .bgm-btn { width: 30px; height: 30px; font-size: 14px; }
+        }
     </style>
 </head>
 <body>
@@ -153,20 +163,18 @@
         const bgmBtn = document.getElementById('bgmBtn');
         let bgmPlaying = false;
 
-        // BGM控制（与主菜单同步，保持播放状态）
+        // BGM控制
         function toggleBgm() {
             if (bgmPlaying) {
                 bgm.pause();
                 bgmBtn.innerText = "▶";
             } else {
-                bgm.play().catch(() => {
-                    document.body.click();
-                    bgm.play();
-                });
+                bgm.play().catch(() => {});
                 bgm.volume = 0.3;
                 bgmBtn.innerText = "⏸";
             }
             bgmPlaying = !bgmPlaying;
+            save();
         }
 
         // 读取存档（同步线索+BG状态）
@@ -273,11 +281,6 @@
         // 页面加载完成后执行
         window.onload=function(){
             load();
-            // 唤醒BGM备用方案
-            document.body.addEventListener('click', function wakeBgm() {
-                bgm.load();
-                document.body.removeEventListener('click', wakeBgm);
-            }, { once: true });
         }
     </script>
 </body>
