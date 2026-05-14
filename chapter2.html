@@ -217,11 +217,26 @@
         </div>
 
         <div class="suspect-panel">
-            <div class="suspect-card" data-name="苏凝" data-testi="我只知乾陵构造规制，从未接触宫廷遗令。裴大人身死我亦惋惜，武李之争我无心掺和，只想守住先帝陵寝安稳。"></div>
-            <div class="suspect-card" data-name="武攸宁" data-testi="虎纹佩虽属我物，却早已遗失。我只求保住武氏基业，从无下毒窃钥之心，更不知什么雌雄双钥秘闻。"></div>
-            <div class="suspect-card" data-name="李千里" data-testi="我护陵只为李唐江山稳固，虽与裴大人有私书信往来，也只论陵寝规制，从不涉及朝堂密令与钥匙秘辛。"></div>
-            <div class="suspect-card" data-name="林晚" data-testi="我只为缝制祭祀衣物听命行事，不懂朝堂党争，亦不知遗令秘事。谨遵先帝遗命安分守己，别无他念。"></div>
-            <div class="suspect-card" data-name="张谏之" data-testi="我督办封陵只为政局安定，虽与裴昭有过对峙，也只是规劝其以朝堂大局为重，从未动用秘药与阴谋手段。"></div>
+            <div class="suspect-card" data-name="苏凝" data-testi="我只知乾陵构造规制，从未接触宫廷遗令。裴大人身死我亦惋惜，武李之争我无心掺和，只想守住先帝陵寝安稳。">
+                <h4>苏凝</h4>
+                <p>乾陵陵监女官</p>
+            </div>
+            <div class="suspect-card" data-name="武攸宁" data-testi="虎纹佩虽属我物，却早已遗失。我只求保住武氏基业，从无下毒窃钥之心，更不知什么雌雄双钥秘闻。">
+                <h4>武攸宁</h4>
+                <p>武氏宗族代表</p>
+            </div>
+            <div class="suspect-card" data-name="李千里" data-testi="我护陵只为李唐江山稳固，虽与裴大人有私书信往来，也只论陵寝规制，从不涉及朝堂密令与钥匙秘辛。">
+                <h4>李千里</h4>
+                <p>李唐护陵使</p>
+            </div>
+            <div class="suspect-card" data-name="林晚" data-testi="我只为缝制祭祀衣物听命行事，不懂朝堂党争，亦不知遗令秘事。谨遵先帝遗命安分守己，别无他念。">
+                <h4>林晚</h4>
+                <p>宫廷绣娘</p>
+            </div>
+            <div class="suspect-card" data-name="张谏之" data-testi="我督办封陵只为政局安定，虽与裴昭有过对峙，也只是规劝其以朝堂大局为重，从未动用秘药与阴谋手段。">
+                <h4>张谏之</h4>
+                <p>当朝宰相</p>
+            </div>
         </div>
 
         <div class="clue-bag">
@@ -248,7 +263,6 @@
     </div>
 
     <script>
-        // 全局总线索 10 条就解锁第三章
         const TOTAL_ALL_CLUE = 10;
         let collectedClues = new Set();
         const saveKey = "qianling_save";
@@ -262,7 +276,7 @@
         const menuBtn = document.getElementById('menuBtn');
         const next3Btn = document.getElementById('nextChapter3Btn');
 
-        // 加载全局存档（包含第一章 + 第二章）
+        // 加载全局存档（自动带第一章）
         function loadProgress() {
             const saved = localStorage.getItem(saveKey);
             if (saved) {
@@ -272,17 +286,15 @@
                 } catch (e) {}
             }
 
-            // 恢复所有已收集线索
             collectedClues.forEach(id => {
                 const point = document.querySelector(`.search-point[data-clue="${id}"]`);
                 if (point) point.classList.add('collected');
             });
 
             renderClues();
-            checkUnlockChapter3(); // 立刻检查是否解锁第三章
+            checkUnlockChapter3();
         }
 
-        // 保存
         function saveProgress() {
             const data = {
                 collected: [...collectedClues],
@@ -292,7 +304,7 @@
             localStorage.setItem(saveKey, JSON.stringify(data));
         }
 
-        // 搜证
+        // 点击搜证
         searchPoints.forEach(point => {
             point.addEventListener('click', function() {
                 const id = this.getAttribute('data-clue');
@@ -311,7 +323,7 @@
             });
         });
 
-        // 显示线索
+        // 渲染线索
         function renderClues() {
             if (collectedClues.size === 0) {
                 clueList.innerHTML = '<p>暂无线索，点击现场光点进行搜证</p>';
@@ -320,7 +332,7 @@
             clueList.innerHTML = '';
             collectedClues.forEach(id => {
                 const point = document.querySelector(`.search-point[data-clue="${id}"]`);
-                if(point){
+                if (point) {
                     const content = point.getAttribute('data-content');
                     const item = document.createElement('div');
                     item.className = 'clue-item';
@@ -330,9 +342,8 @@
             });
         }
 
-        // 解锁第三章（只要总数 ≥10 就显示）
+        // 解锁第三章（满10条自动显示）
         function checkUnlockChapter3() {
-            console.log("当前总线索数：", collectedClues.size);
             if (collectedClues.size >= TOTAL_ALL_CLUE) {
                 next3Btn.style.display = 'block';
             }
@@ -343,7 +354,7 @@
         menuBtn.onclick = () => window.location.href = "menu.html";
         next3Btn.onclick = () => window.location.href = "chapter3.html";
 
-        // 证词
+        // 嫌疑人证词
         const suspectCards = document.querySelectorAll('.suspect-card');
         suspectCards.forEach(card => {
             card.addEventListener('click', function() {
@@ -354,8 +365,15 @@
             });
         });
 
-        function closeClue() { clueModal.style.display = 'none'; mask.style.display = 'none'; }
-        function closeTestimony() { testimonyModal.style.display = 'none'; mask.style.display = 'none'; }
+        function closeClue() {
+            clueModal.style.display = 'none';
+            mask.style.display = 'none';
+        }
+
+        function closeTestimony() {
+            testimonyModal.style.display = 'none';
+            mask.style.display = 'none';
+        }
 
         window.onload = loadProgress;
     </script>
