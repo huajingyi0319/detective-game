@@ -45,21 +45,39 @@
             <p>你将指认凶手，揭开乾陵谜案的最终真相。</p>
         </div>
         <div class="scene-box">
-            <div class="search-point" data-clue="11" data-content="唯一能使用宫廷金线+接触毒药的人：林晚"></div>
-            <div class="search-point" data-clue="12" data-content="武则天密令：若裴昭不忠，可由绣娘伺机除之"></div>
+            <div class="search-point" style="top: 200px; left: 300px;" data-clue="11" data-content="唯一能使用宫廷金线+接触毒药的人：林晚"></div>
+            <div class="search-point" style="top: 280px; left: 480px;" data-clue="12" data-content="武则天密令：若裴昭不忠，可由绣娘伺机除之"></div>
         </div>
         <div class="suspect-panel">
-            <div class="suspect-card" data-name="苏凝" data-testi="我无罪。"><h4>苏凝</h4><p>陵监女官</p></div>
-            <div class="suspect-card" data-name="武攸宁" data-testi="我非凶手。"><h4>武攸宁</h4><p>武氏代表</p></div>
-            <div class="suspect-card" data-name="李千里" data-testi="与我无关。"><h4>李千里</h4><p>护陵使</p></div>
-            <div class="suspect-card" data-name="林晚" data-testi="我只是奉命行事。"><h4>林晚</h4><p>宫廷绣娘</p></div>
-            <div class="suspect-card" data-name="张谏之" data-testi="真凶另有其人。"><h4>张谏之</h4><p>宰相</p></div>
+            <div class="suspect-card" data-name="苏凝" data-testi="我无罪。">
+                <h4>苏凝</h4>
+                <p>陵监女官</p>
+            </div>
+            <div class="suspect-card" data-name="武攸宁" data-testi="我非凶手。">
+                <h4>武攸宁</h4>
+                <p>武氏代表</p>
+            </div>
+            <div class="suspect-card" data-name="李千里" data-testi="与我无关。">
+                <h4>李千里</h4>
+                <p>护陵使</p>
+            </div>
+            <div class="suspect-card" data-name="林晚" data-testi="我只是奉命行事。">
+                <h4>林晚</h4>
+                <p>宫廷绣娘</p>
+            </div>
+            <div class="suspect-card" data-name="张谏之" data-testi="真凶另有其人。">
+                <h4>张谏之</h4>
+                <p>当朝宰相</p>
+            </div>
         </div>
         <div style="text-align:center; margin:30px 0;">
             <button class="close-btn" onclick="judge('林晚')">指认：林晚（真凶）</button>
             <button class="close-btn" onclick="judge('其他')" style="margin-left:10px;">指认：其他人</button>
         </div>
-        <div class="clue-bag"><h3>全部线索</h3><div id="clueList" class="clue-list"><p>暂无线索</p></div></div>
+        <div class="clue-bag">
+            <h3>全部线索</h3>
+            <div id="clueList" class="clue-list"><p>暂无线索</p></div>
+        </div>
     </div>
     <div class="mask"></div>
     <div class="clue-modal"><h3>关键线索</h3><p id="clueContent"></p><button class="close-btn" onclick="closeClue()">关闭</button></div>

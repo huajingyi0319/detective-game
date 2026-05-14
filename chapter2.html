@@ -44,20 +44,38 @@
             <p>所有线索，都指向一场围绕皇权与帝陵的惊天阴谋。</p>
         </div>
         <div class="scene-box">
-            <div class="search-point" data-clue="6" data-content="绣筐内独有宫廷专用金线，与钥匙袋痕迹一致"></div>
-            <div class="search-point" data-clue="7" data-content="武则天遗令：雌雄钥分存，防一党独大"></div>
-            <div class="search-point" data-clue="8" data-content="祭祀服饰夹层藏有钥痕，只有绣娘可缝制"></div>
-            <div class="search-point" data-clue="9" data-content="草木犀毒手记，只有内宫尚食局与绣娘可接触"></div>
-            <div class="search-point" data-clue="10" data-content="密信记载：雌钥存陵监，雄钥入深宫"></div>
+            <div class="search-point" style="top: 180px; left: 280px;" data-clue="6" data-content="绣筐内独有宫廷专用金线，与钥匙袋痕迹一致"></div>
+            <div class="search-point" style="top: 260px; left: 520px;" data-clue="7" data-content="武则天遗令：雌雄钥分存，防一党独大"></div>
+            <div class="search-point" style="top: 310px; left: 360px;" data-clue="8" data-content="祭祀服饰夹层藏有钥痕，只有绣娘可缝制"></div>
+            <div class="search-point" style="top: 210px; left: 460px;" data-clue="9" data-content="草木犀毒手记，只有内宫尚食局与绣娘可接触"></div>
+            <div class="search-point" style="top: 280px; left: 580px;" data-clue="10" data-content="密信记载：雌钥存陵监，雄钥入深宫"></div>
         </div>
         <div class="suspect-panel">
-            <div class="suspect-card" data-name="苏凝" data-testi="我守陵不问朝事，不知深宫密令。"><h4>苏凝</h4><p>陵监女官</p></div>
-            <div class="suspect-card" data-name="武攸宁" data-testi="虎纹佩遗失，我并非凶手。"><h4>武攸宁</h4><p>武氏代表</p></div>
-            <div class="suspect-card" data-name="李千里" data-testi="我不涉毒杀，只护陵安全。"><h4>李千里</h4><p>护陵使</p></div>
-            <div class="suspect-card" data-name="林晚" data-testi="我只负责刺绣，不知毒与钥。"><h4>林晚</h4><p>宫廷绣娘</p></div>
-            <div class="suspect-card" data-name="张谏之" data-testi="我主朝政，不沾帝陵私事。"><h4>张谏之</h4><p>当朝宰相</p></div>
+            <div class="suspect-card" data-name="苏凝" data-testi="我守陵不问朝事，不知深宫密令。">
+                <h4>苏凝</h4>
+                <p>陵监女官</p>
+            </div>
+            <div class="suspect-card" data-name="武攸宁" data-testi="虎纹佩遗失，我并非凶手。">
+                <h4>武攸宁</h4>
+                <p>武氏代表</p>
+            </div>
+            <div class="suspect-card" data-name="李千里" data-testi="我不涉毒杀，只护陵安全。">
+                <h4>李千里</h4>
+                <p>护陵使</p>
+            </div>
+            <div class="suspect-card" data-name="林晚" data-testi="我只负责刺绣，不知毒与钥。">
+                <h4>林晚</h4>
+                <p>宫廷绣娘</p>
+            </div>
+            <div class="suspect-card" data-name="张谏之" data-testi="我主朝政，不沾帝陵私事。">
+                <h4>张谏之</h4>
+                <p>当朝宰相</p>
+            </div>
         </div>
-        <div class="clue-bag"><h3>全局线索</h3><div id="clueList" class="clue-list"><p>暂无线索</p></div></div>
+        <div class="clue-bag">
+            <h3>全局线索</h3>
+            <div id="clueList" class="clue-list"><p>暂无线索</p></div>
+        </div>
     </div>
     <button id="nextBtn">进入第三章 终章</button>
     <div class="mask"></div>
@@ -93,7 +111,6 @@
         }
 
         function checkUnlock(){
-            console.log("总线索：", collected.size);
             if(collected.size >= 10){
                 nextBtn.style.display = "block";
             }

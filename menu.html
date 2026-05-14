@@ -1,87 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>乾陵残卷 - 章节选择</title>
-  <style>
-    body {
-      background: #1a1a2e;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    h1 {
-        font-size: 36px;
-        color: #d4af37;
-        margin-bottom: 40px;
-        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-    }
-    .chapter-btn {
-      margin: 10px;
-      padding: 15px 30px;
-      background: #d4af37;
-      color: #1a1a2e;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 18px;
-      width: 280px;
-    }
-    .chapter-btn:disabled {
-      background: #666;
-      cursor: not-allowed;
-      color: #999;
-    }
-    .tip {
-        margin-top: 20px;
-        color: #aaa;
-        font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乾陵残卷 - 章节菜单</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", serif;
+        }
+        body {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .title {
+            font-size: 36px;
+            color: #d4af37;
+            margin-bottom: 50px;
+            text-shadow: 0 0 12px rgba(212,175,55,0.5);
+            letter-spacing: 4px;
+        }
+        .menu-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .menu-btn {
+            width: 260px;
+            padding: 16px 0;
+            font-size: 18px;
+            border: 2px solid #d4af37;
+            background: transparent;
+            color: #d4af37;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .menu-btn:hover {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+        .menu-btn.lock {
+            opacity: 0.35;
+            cursor: not-allowed;
+            border-color: #666;
+            color: #999;
+        }
+        .menu-btn.lock:hover {
+            background: transparent;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
-  <h1>乾陵残卷</h1>
-  <button class="chapter-btn" id="ch1Btn">第一章：乾陵凶案（已解锁）</button>
-  <button class="chapter-btn" id="ch2Btn" disabled>第二章：深宫秘影（未解锁）</button>
-  <button class="chapter-btn" id="ch3Btn" disabled>第三章：真相落定（未解锁）</button>
-  <div class="tip" id="tipTxt">集齐第一章线索解锁后续章节</div>
+    <h1 class="title">乾陵残卷</h1>
+    <div class="menu-wrap">
+        <button class="menu-btn" id="ch1">第一章 凶案初现</button>
+        <button class="menu-btn lock" id="ch2" disabled>第二章 深宫秘影（未解锁）</button>
+        <button class="menu-btn lock" id="ch3" disabled>第三章 真相落定（未解锁）</button>
 
-  <script>
-    const saveKey = "qianling_save";
-    const TOTAL_CH1_CLUE = 5;
-    const TOTAL_ALL_CLUE = 10;
+        <button class="menu-btn" style="margin-top:30px;background:#3a3a5a;border-color:#666;color:#eee;" id="resetBtn">重置全部存档</button>
+    </div>
 
-    window.onload = () => {
-      let collected = [];
-      const saved = localStorage.getItem(saveKey);
-      if(saved){
-        try{
-          const data = JSON.parse(saved);
-          collected = data.collected || [];
-        }catch(e){}
-      }
+    <script>
+        const saveKey = "qianling_save";
+        const ch1 = document.getElementById('ch1');
+        const ch2 = document.getElementById('ch2');
+        const ch3 = document.getElementById('ch3');
 
-      // 第一章≥5条 → 解锁第二章
-      const ch1Done = collected.filter(x => parseInt(x) <= TOTAL_CH1_CLUE).length >= TOTAL_CH1_CLUE;
-      // 一二章合计≥10条 → 解锁第三章
-      const ch2Done = collected.length >= TOTAL_ALL_CLUE;
+        let collected = new Set();
 
-      if(ch1Done){
-        document.getElementById('ch2Btn').disabled = false;
-      }
-      if(ch2Done){
-        document.getElementById('ch3Btn').disabled = false;
-        document.getElementById('tipTxt').innerText = "全部章节已解锁，可探索完整结局";
-      }
+        // 读取存档
+        function loadSave(){
+            let s = localStorage.getItem(saveKey);
+            if(!s) return;
+            try{
+                let d = JSON.parse(s);
+                collected = new Set(d.collected || []);
+            }catch(e){}
+        }
 
-      document.getElementById('ch1Btn').onclick = ()=>location.href='index.html';
-      document.getElementById('ch2Btn').onclick = ()=>location.href='chapter2.html';
-      document.getElementById('ch3Btn').onclick = ()=>location.href='chapter3.html';
-    };
-  </script>
+        // 判断解锁
+        function checkUnlock(){
+            let num = collected.size;
+
+            // 第一章永远可进
+            ch1.onclick = ()=>location.href="index.html";
+
+            // 线索 >=5 解锁第二章
+            if(num >= 5){
+                ch2.classList.remove('lock');
+                ch2.disabled = false;
+                ch2.innerText = "第二章 深宫秘影";
+                ch2.onclick = ()=>location.href="chapter2.html";
+            }
+
+            // 线索 >=10 解锁第三章
+            if(num >= 10){
+                ch3.classList.remove('lock');
+                ch3.disabled = false;
+                ch3.innerText = "第三章 真相落定";
+                ch3.onclick = ()=>location.href="chapter3.html";
+            }
+        }
+
+        // 重置存档
+        document.getElementById('resetBtn').onclick = function(){
+            if(confirm("确定要重置全部游戏进度吗？将清空所有线索！")){
+                localStorage.removeItem(saveKey);
+                alert("已重置，请刷新页面");
+                location.reload();
+            }
+        }
+
+        window.onload = function(){
+            loadSave();
+            checkUnlock();
+        }
+    </script>
 </body>
 </html>
