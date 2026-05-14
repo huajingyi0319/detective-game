@@ -5,380 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>乾陵残卷·第一章 凶案初现</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: '微软雅黑', serif;
-        }
-        body {
-            background: #1a1a2e;
-            color: #e0e0e0;
-            line-height: 1.6;
-        }
-        .game-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .chapter-title {
-            text-align: center;
-            font-size: 28px;
-            color: #d4af37;
-            margin: 20px 0;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-        .story-panel {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #3a3a5a;
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            font-size: 16px;
-        }
-        .scene-box {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            background: url('bg.jpg') no-repeat center;
-            background-size: cover;
-            border-radius: 8px;
-            border: 2px solid #4a4a6a;
-            margin-bottom: 25px;
-            overflow: hidden;
-        }
-        .search-point {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .search-point:hover {
-            background: rgba(212, 175, 55, 0.8);
-            transform: scale(1.2);
-        }
-        .search-point.collected {
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid #d4af37;
-        }
-        .clue-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #2a2a4a;
-            border: 2px solid #d4af37;
-            padding: 30px;
-            border-radius: 10px;
-            z-index: 999;
-            width: 80%;
-            max-width: 600px;
-        }
-        .clue-modal h3 {
-            color: #d4af37;
-            margin-bottom: 15px;
-        }
-        .close-btn {
-            margin-top: 20px;
-            padding: 8px 20px;
-            background: #d4af37;
-            color: #1a1a2e;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .suspect-panel {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        .suspect-card {
-            flex: 1;
-            min-width: 180px;
-            background: rgba(42, 42, 74, 0.7);
-            border: 1px solid #3a3a5a;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .suspect-card:hover {
-            border-color: #d4af37;
-            transform: translateY(-5px);
-        }
-        .suspect-card h4 {
-            color: #d4af37;
-            margin-bottom: 10px;
-        }
-        .testimony-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #2a2a4a;
-            border: 2px solid #d4af37;
-            padding: 30px;
-            border-radius: 10px;
-            z-index: 999;
-            width: 80%;
-            max-width: 700px;
-        }
-        .clue-bag {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #3a3a5a;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        .clue-bag h3 {
-            color: #d4af37;
-            margin-bottom: 15px;
-        }
-        .clue-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .clue-item {
-            background: #3a3a5a;
-            padding: 8px 15px;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .mask {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 998;
-        }
-        #nextChapterBtn{
-            display:none;
-            position:fixed;
-            bottom:30px;
-            left:50%;
-            transform:translateX(-50%);
-            background:#d4af37;
-            color:#1a1a2e;
-            border:none;
-            padding:12px 30px;
-            border-radius:6px;
-            font-size:16px;
-            cursor:pointer;
-            z-index:1000;
-        }
-        #menuBtn{
-            position:fixed;
-            top:20px;
-            left:20px;
-            background:#d4af37;
-            color:#1a1a2e;
-            border:none;
-            padding:8px 15px;
-            border-radius:4px;
-            cursor:pointer;
-            z-index:1000;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:微软雅黑, serif; }
+        body { background:#1a1a2e; color:#e0e0e0; line-height:1.6; }
+        .game-container { max-width:1000px; margin:0 auto; padding:20px; }
+        .chapter-title { text-align:center; font-size:28px; color:#d4af37; margin:20px 0; text-shadow:0 0 10px rgba(212,175,55,0.5); }
+        .story-panel { background:rgba(0,0,0,0.6); border:1px solid #3a3a5a; padding:25px; border-radius:8px; margin-bottom:25px; font-size:16px; }
+        .scene-box { position:relative; width:100%; height:500px; background:url('bg.jpg') no-repeat center; background-size:cover; border-radius:8px; border:2px solid #4a4a6a; margin-bottom:25px; overflow:hidden; }
+        .search-point { position:absolute; width:30px; height:30px; background:rgba(212,175,55,0.3); border-radius:50%; cursor:pointer; transition:all 0.3s; }
+        .search-point:hover { background:rgba(212,175,55,0.8); transform:scale(1.2); }
+        .search-point.collected { background:rgba(212,175,55,0.15); border:1px solid #d4af37; }
+        .clue-modal { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#2a2a4a; border:2px solid #d4af37; padding:30px; border-radius:10px; z-index:999; width:80%; max-width:600px; }
+        .clue-modal h3 { color:#d4af37; margin-bottom:15px; }
+        .close-btn { margin-top:20px; padding:8px 20px; background:#d4af37; color:#1a1a2e; border:none; border-radius:4px; cursor:pointer; }
+        .suspect-panel { display:flex; flex-wrap:wrap; gap:15px; margin-bottom:25px; }
+        .suspect-card { flex:1; min-width:180px; background:rgba(42,42,74,0.7); border:1px solid #3a3a5a; border-radius:8px; padding:15px; text-align:center; cursor:pointer; transition:0.3s; }
+        .suspect-card:hover { border-color:#d4af37; transform:translateY(-5px); }
+        .suspect-card h4 { color:#d4af37; margin-bottom:10px; }
+        .testimony-modal { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#2a2a4a; border:2px solid #d4af37; padding:30px; border-radius:10px; z-index:999; width:80%; max-width:700px; }
+        .clue-bag { background:rgba(0,0,0,0.6); border:1px solid #3a3a5a; padding:20px; border-radius:8px; }
+        .clue-bag h3 { color:#d4af37; margin-bottom:15px; }
+        .clue-list { display:flex; flex-wrap:wrap; gap:10px; }
+        .clue-item { background:#3a3a5a; padding:8px 15px; border-radius:4px; font-size:14px; }
+        .mask { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:998; }
+        #nextChapterBtn{ display:none; position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#d4af37; color:#1a1a2e; border:none; padding:12px 30px; border-radius:6px; font-size:16px; cursor:pointer; z-index:1000; }
+        #menuBtn{ position:fixed; top:20px; left:20px; background:#d4af37; color:#1a1a2e; border:none; padding:8px 15px; border-radius:4px; cursor:pointer; z-index:1000; }
     </style>
 </head>
 <body>
-    <button id="menuBtn">≡ 主菜单</button>
-
+    <button id="menuBtn">主菜单</button>
     <div class="game-container">
-        <h1 class="chapter-title">第一章 乾陵凶案·秘钥失窃</h1>
-
+        <h1 class="chapter-title">第一章 凶案初现</h1>
         <div class="story-panel">
-            <p>【唐神龙元年，公元705年】</p>
-            <p>神龙政变落幕，武则天退位，唐中宗复辟，武李两党朝堂暗流汹涌。</p>
-            <p>乾陵，高宗与武则天合葬帝陵，地宫封陵在即，负责监造地宫、保管鎏金鸳鸯主钥的将作大匠裴昭，却在陵监署内室离奇身亡，地宫钥匙不知所踪。</p>
-            <p>距封陵仅剩3个时辰，一旦无法闭合帝陵，李唐龙脉动荡，朝野大乱。</p>
-            <p>你作为大理寺特派少卿，临危受命，封锁现场，务必在时限内查明真凶，找回鎏金钥匙。</p>
-            <p>此刻，你踏入陵监署凶案现场，真相，就藏在细节之中……</p>
+            <p>大唐神龙元年，乾陵将封，将作大匠裴昭离奇死于陵监署内。</p>
+            <p>雌雄鎏金钥失踪，朝野震动，武李两党暗流涌动。</p>
+            <p>你奉命查案，踏入杀机四伏的帝陵禁地……</p>
         </div>
-
         <div class="scene-box">
-            <div class="search-point" style="top: 200px; left: 300px;" data-clue="1" data-content="死者手中紧握半片武则天亲笔竹简，字迹潦草：乾陵玄阙，归陵安厝，毋违朕命"></div>
-            <div class="search-point" style="top: 250px; left: 500px;" data-clue="2" data-content="桌案温茶，茶盏内检出草木犀毒，唐代宫廷秘毒，慢性毒发"></div>
-            <div class="search-point" style="top: 300px; left: 350px;" data-clue="3" data-content="死者腰间钥匙袋空空，袋口有宫廷专属金线缝合痕迹"></div>
-            <div class="search-point" style="top: 320px; left: 450px;" data-clue="4" data-content="地面掉落武氏宗族玄铁虎纹佩，非李唐皇室器物"></div>
-            <div class="search-point" style="top: 220px; left: 550px;" data-clue="5" data-content="施工日志，最后一页字迹被涂抹，隐约可见：钥匙、神龙、武三思"></div>
+            <div class="search-point" data-clue="1" data-content="死者手中紧握半片竹简，字迹模糊，含“陵”“钥”二字"></div>
+            <div class="search-point" data-clue="2" data-content="桌案茶盏内残留草木犀毒，无色无味，慢性致命"></div>
+            <div class="search-point" data-clue="3" data-content="腰间钥匙袋被精细拆开又缝合，痕迹极新"></div>
+            <div class="search-point" data-clue="4" data-content="地面掉落一枚武氏宗族虎纹佩"></div>
+            <div class="search-point" data-clue="5" data-content="施工日志最后一页被撕毁，残留墨迹：“遗令”“不可留”"></div>
         </div>
-
         <div class="suspect-panel">
-            <div class="suspect-card" data-name="苏凝" data-testi="我是陵监女官，跟随裴大人五年，今日一直在外殿整理文书，未曾进入内室。案发前一切正常，我不知大人为何会遭此毒手，鎏金钥匙我也从未碰过。">
-                <h4>苏凝</h4>
-                <p>乾陵陵监女官</p>
-            </div>
-            <div class="suspect-card" data-name="武攸宁" data-testi="我是武氏宗族代表，前来督办封陵事宜，案发时我在陵外等候，从未进入陵监署。钥匙丢失与我无关，那枚虎纹佩我早已丢失，不知为何会在现场。">
-                <h4>武攸宁</h4>
-                <p>武氏宗族代表</p>
-            </div>
-            <div class="suspect-card" data-name="李千里" data-testi="我乃李唐护陵使，负责守护帝陵，我与裴大人仅有几面之缘，只谈封陵公事。案发时段我在巡查陵山护卫，有侍卫可为证。">
-                <h4>李千里</h4>
-                <p>李唐护陵使</p>
-            </div>
-            <div class="suspect-card" data-name="林晚" data-testi="我是宫廷绣娘，负责缝制祭祀服饰，今日只在外间缝制衣物，从未靠近大人内室。我不懂药理，也不知钥匙之事。">
-                <h4>林晚</h4>
-                <p>宫廷绣娘</p>
-            </div>
+            <div class="suspect-card" data-name="苏凝" data-testi="我世代守陵，绝无弑官窃钥之理。"><h4>苏凝</h4><p>陵监女官</p></div>
+            <div class="suspect-card" data-name="武攸宁" data-testi="我为武氏宗亲，何须行此下策？"><h4>武攸宁</h4><p>武氏代表</p></div>
+            <div class="suspect-card" data-name="李千里" data-testi="我只护李唐安危，不涉毒杀阴谋。"><h4>李千里</h4><p>护陵使</p></div>
+            <div class="suspect-card" data-name="林晚" data-testi="我只是绣娘，奉命缝制衣物，不知内情。"><h4>林晚</h4><p>宫廷绣娘</p></div>
         </div>
-
-        <div class="clue-bag">
-            <h3>线索背包</h3>
-            <div class="clue-list" id="clueList">
-                <p>暂无线索，点击现场光点进行搜证</p>
-            </div>
-        </div>
+        <div class="clue-bag"><h3>线索背包</h3><div id="clueList" class="clue-list"><p>暂无线索</p></div></div>
     </div>
-
     <button id="nextChapterBtn">进入第二章</button>
-
-    <div class="mask" id="mask"></div>
-    <div class="clue-modal" id="clueModal1">
-        <h3>发现线索</h3>
-        <p id="clueContent"></p>
-        <button class="close-btn" onclick="closeClue()">关闭</button>
-    </div>
-
-    <div class="testimony-modal" id="testimonyModal">
-        <h3 id="suspectName"></h3>
-        <p id="testimonyContent"></p>
-        <button class="close-btn" onclick="closeTestimony()">关闭</button>
-    </div>
-
+    <div class="mask"></div>
+    <div class="clue-modal"><h3>发现线索</h3><p id="clueContent"></p><button class="close-btn" onclick="closeClue()">关闭</button></div>
+    <div class="testimony-modal"><h3 id="suspectName"></h3><p id="testimonyContent"></p><button class="close-btn" onclick="closeTestimony()">关闭</button></div>
     <script>
-        const TOTAL_CH1_CLUE = 5;
-        let collectedClues = new Set();
         const saveKey = "qianling_save";
-
-        const searchPoints = document.querySelectorAll('.search-point');
-        const clueModal = document.getElementById('clueModal1');
-        const testimonyModal = document.getElementById('testimonyModal');
-        const mask = document.getElementById('mask');
-        const clueList = document.getElementById('clueList');
-        const nextBtn = document.getElementById('nextChapterBtn');
-        const menuBtn = document.getElementById('menuBtn');
-
-        // ==== 存档系统 ====
-        function saveProgress() {
-            const data = {
-                collected: [...collectedClues],
-                ch2Unlocked: collectedClues.size >= TOTAL_CH1_CLUE
-            };
-            localStorage.setItem(saveKey, JSON.stringify(data));
+        let collected = new Set();
+        const nextBtn = document.getElementById("nextChapterBtn");
+        const clueList = document.getElementById("clueList");
+        function load(){
+            let s = localStorage.getItem(saveKey);
+            if(s){ try{ let d=JSON.parse(s); collected=new Set(d.collected||[]); }catch(e){} }
+            collected.forEach(id=>{ let p=document.querySelector(`[data-clue="${id}"]`); if(p) p.classList.add("collected"); });
+            render();
+            if(collected.size>=5) nextBtn.style.display="block";
         }
-
-        function loadProgress() {
-            const saved = localStorage.getItem(saveKey);
-            if (!saved) return;
-            try {
-                const data = JSON.parse(saved);
-                collectedClues = new Set(data.collected || []);
-            } catch (e) {
-                collectedClues = new Set();
+        function save(){ localStorage.setItem(saveKey, JSON.stringify({collected:[...collected]})); }
+        function render(){
+            if(collected.size===0){ clueList.innerHTML="<p>暂无线索</p>"; return; }
+            clueList.innerHTML="";
+            collected.forEach(id=>{
+                let p=document.querySelector(`[data-clue="${id}"]`);
+                let div=document.createElement("div"); div.className="clue-item"; div.innerText=p.dataset.content; clueList.appendChild(div);
+            });
+        }
+        document.querySelectorAll(".search-point").forEach(p=>{
+            p.onclick=()=>{
+                let id=p.dataset.clue; if(collected.has(id))return;
+                collected.add(id); document.getElementById("clueContent").innerText=p.dataset.content;
+                document.querySelector(".clue-modal").style.display="block"; document.querySelector(".mask").style.display="block";
+                p.classList.add("collected"); render(); save();
+                if(collected.size>=5) nextBtn.style.display="block";
             }
-            collectedClues.forEach(id => {
-                const point = document.querySelector(`.search-point[data-clue="${id}"]`);
-                if (point) point.classList.add('collected');
-            });
-            renderClues();
-            checkUnlockChapter2();
-        }
-
-        // ==== 搜证 ====
-        searchPoints.forEach(point => {
-            point.addEventListener('click', function() {
-                const id = this.getAttribute('data-clue');
-                const content = this.getAttribute('data-content');
-                if (collectedClues.has(id)) return;
-
-                collectedClues.add(id);
-                document.getElementById('clueContent').innerText = content;
-                clueModal.style.display = 'block';
-                mask.style.display = 'block';
-
-                this.classList.add('collected');
-                renderClues();
-                checkUnlockChapter2();
-                saveProgress();
-            });
         });
-
-        function renderClues() {
-            if (collectedClues.size === 0) {
-                clueList.innerHTML = '<p>暂无线索，点击现场光点进行搜证</p>';
-                return;
-            }
-            clueList.innerHTML = '';
-            collectedClues.forEach(id => {
-                const point = document.querySelector(`.search-point[data-clue="${id}"]`);
-                const content = point.getAttribute('data-content');
-                const item = document.createElement('div');
-                item.className = 'clue-item';
-                item.innerText = content;
-                clueList.appendChild(item);
-            });
-        }
-
-        function checkUnlockChapter2() {
-            if (collectedClues.size >= TOTAL_CH1_CLUE) {
-                nextBtn.style.display = 'block';
-            }
-        }
-
-        // ==== 跳转 ====
-        nextBtn.onclick = function() {
-            window.location.href = "chapter2.html";
-        };
-        menuBtn.onclick = function() {
-            window.location.href = "menu.html";
-        };
-
-        // ==== 嫌疑人证词 ====
-        const suspectCards = document.querySelectorAll('.suspect-card');
-        suspectCards.forEach(card => {
-            card.addEventListener('click', function() {
-                const name = this.getAttribute('data-name');
-                const testi = this.getAttribute('data-testi');
-                document.getElementById('suspectName').innerText = name;
-                document.getElementById('testimonyContent').innerText = testi;
-                testimonyModal.style.display = 'block';
-                mask.style.display = 'block';
-            });
+        function closeClue(){ document.querySelector(".clue-modal").style.display="none"; document.querySelector(".mask").style.display="none"; }
+        document.querySelectorAll(".suspect-card").forEach(c=>{
+            c.onclick=()=>{ document.getElementById("suspectName").innerText=c.dataset.name; document.getElementById("testimonyContent").innerText=c.dataset.testi; document.querySelector(".testimony-modal").style.display="block"; document.querySelector(".mask").style.display="block"; }
         });
-
-        function closeClue() {
-            clueModal.style.display = 'none';
-            mask.style.display = 'none';
-        }
-        function closeTestimony() {
-            testimonyModal.style.display = 'none';
-            mask.style.display = 'none';
-        }
-
-        window.onload = loadProgress;
-    </script>
-
-    <audio id="bgm" loop>
-      <source src="bgm.mp3" type="audio/mpeg">
-    
-    <script>
-    const bgm = document.getElementById('bgm');
-    document.addEventListener('click', function playBgmOnce() {
-      bgm.play();
-      bgm.volume = 0.4;
-      document.removeEventListener('click', playBgmOnce);
-    });
+        function closeTestimony(){ document.querySelector(".testimony-modal").style.display="none"; document.querySelector(".mask").style.display="none"; }
+        nextBtn.onclick=()=>location.href="chapter2.html";
+        document.getElementById("menuBtn").onclick=()=>location.href="menu.html";
+        window.onload=load;
     </script>
 </body>
 </html>
