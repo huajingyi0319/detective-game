@@ -43,6 +43,50 @@
         #nextBtn{ display:none; position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#d4af37; color:#1a1a2e; border:none; padding:14px 30px; border-radius:6px; font-size:16px; cursor:pointer; z-index:1001; transition: 0.3s; }
         #nextBtn:hover { background:#c09f2e; transform: translateX(-50%) translateY(-3px); }
         .bgm-btn { position:fixed; top:20px; right:20px; width:40px; height:40px; border-radius:50%; background: rgba(212,175,55,0.8); color:#1a1a2e; border:none; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; z-index:1000; }
+
+        @media screen and (max-width: 768px) {
+            .game-container { padding:15px; margin-top:10px; margin-bottom:80px; }
+            .chapter-title { font-size:24px; letter-spacing:2px; }
+            .chapter-subtitle { font-size:14px; margin-bottom:20px; }
+            .story-panel { padding:15px; font-size:14px; line-height:1.7; }
+            .scene-box { height:300px; margin-bottom:15px; }
+            .search-point { width:24px; height:24px; }
+            .suspect-panel { gap:10px; }
+            .suspect-card { min-width:150px; padding:12px; }
+            .suspect-card h4 { font-size:16px; }
+            .suspect-card .identity { font-size:13px; }
+            .suspect-card .intro { font-size:12px; }
+            .clue-modal { width:90%; padding:20px; }
+            .clue-modal h3 { font-size:18px; }
+            .clue-modal p { font-size:14px; }
+            .testimony-modal { width:90%; padding:20px; }
+            .testimony-modal h3 { font-size:18px; }
+            .testimony-modal .suspect-intro { font-size:13px; }
+            .testimony-modal .testi-content { font-size:14px; }
+            .clue-bag { padding:15px; }
+            .clue-bag h3 { font-size:16px; }
+            .nav-btn { padding:6px 12px; font-size:13px; }
+            #backBtn { left:15px; }
+            #menuBtn { left:95px; }
+            #nextBtn { bottom:20px; padding:10px 20px; font-size:14px; width:90%; max-width:300px; }
+            .bgm-btn { width:36px; height:36px; font-size:16px; right:15px; top:15px; }
+        }
+
+        @media screen and (max-width: 480px) {
+            .game-container { padding:10px; }
+            .chapter-title { font-size:20px; }
+            .chapter-subtitle { font-size:12px; }
+            .story-panel { padding:12px; font-size:13px; }
+            .scene-box { height:250px; }
+            .search-point { width:20px; height:20px; }
+            .suspect-card { min-width:100%; flex:1 1 100%; }
+            .clue-modal { padding:15px; }
+            .testimony-modal { padding:15px; }
+            .clue-list { gap:8px; }
+            .clue-item { font-size:12px; padding:6px 10px; }
+            #menuBtn { left:85px; }
+            #nextBtn { bottom:15px; width:85%; }
+        }
     </style>
 </head>
 <body>
